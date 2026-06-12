@@ -74,10 +74,12 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    /*
     public UserResponseDto login(@Valid LoginRequestDto request) {
-        User user = userRepository.findByEmail(request.getEmail());
+        //User user = userRepository.findByEmail(request.getEmail());
         // 존재하지 않으면 예외던지고
         // 존재한다면 값 비교해 처리
-        return new UserResponseDto(user);
+        //return new UserResponseDto(user);
     }
+     */
 }

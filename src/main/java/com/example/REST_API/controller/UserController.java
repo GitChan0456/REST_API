@@ -23,10 +23,12 @@ public class UserController {
     public UserResponseDto createUser(@Valid @RequestBody UserRequestDto request) {
         return userService.createUser(request);
     }
+    /*
     @PostMapping("/login")
     public UserResponseDto createUser(@Valid @RequestBody LoginRequestDto request) {
         return userService.login(request);
     }
+     */
 
     @PatchMapping("/{userId}")
     public UserResponseDto patchUser(@PathVariable Long userId, @RequestBody UserRequestDto request ) {
