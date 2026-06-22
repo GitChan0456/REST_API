@@ -13,8 +13,7 @@ public class PostRequestDto {
     private String title;
     @NotBlank
     private String content;
-    @NotBlank
-    private User user;
+
     // 이미지는 선택사항
     private String image_url;
 

@@ -8,6 +8,4 @@ import lombok.Getter;
 public class CommentRequestDto {
     @NotBlank
     private String content;
-    @NotBlank
-    private User user;
 }

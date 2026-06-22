@@ -19,7 +19,7 @@ public class PostResponseDto {
     private String write_time;  // 작성시간
 
     public PostResponseDto(Post post){
-        this.post_id = post.getPost_id();
+        this.post_id = post.getPostId();
         this.title = post.getTitle();
         this.content = post.getContent();
         this.image_url = post.getImage_url();

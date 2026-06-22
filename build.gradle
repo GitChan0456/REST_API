@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
+	// 원래있던것들
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -28,8 +29,19 @@ dependencies {
 	// Bean Validation을 사용가능하도록 해줌
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	// 롬복관련
 	compileOnly 'org.projectlombok:lombok'			// 롬복 컴파일시 사용가능하도록
 	annotationProcessor 'org.projectlombok:lombok'	// 롬복의 어노테이션 코드를 생성해주는 역할 (@Getter 같은거 실제 코드)
+
+	// H2 디비
+	runtimeOnly 'com.h2database:h2' // H2는 런타임 의존성으로 추가
+	implementation 'org.springframework.boot:spring-boot-h2console'
+	// JDBC
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc' // 선택: 코드로 쿼리 테스트 시 권장
+
+	// JPA 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
 }
 
 tasks.named('test') {

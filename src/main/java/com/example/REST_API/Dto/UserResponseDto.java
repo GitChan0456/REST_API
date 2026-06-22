@@ -13,7 +13,7 @@ public class UserResponseDto {
     private String profile_image;
 
     public UserResponseDto(User user) {
-        this.user_id = user.getUser_id();
+        this.user_id = user.getUserId();
         this.email = user.getEmail();
         this.nickname = user.getNickname();
         this.profile_image = user.getProfile_image();

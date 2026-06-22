@@ -4,6 +4,7 @@ import com.example.REST_API.Dto.LoginRequestDto;
 import com.example.REST_API.Dto.UserRequestDto;
 import com.example.REST_API.Dto.UserResponseDto;
 import com.example.REST_API.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,12 +24,24 @@ public class UserController {
     public UserResponseDto createUser(@Valid @RequestBody UserRequestDto request) {
         return userService.createUser(request);
     }
+
     /*
     @PostMapping("/login")
-    public UserResponseDto createUser(@Valid @RequestBody LoginRequestDto request) {
+    public UserResponseDto logineUser(@Valid @RequestBody LoginRequestDto request) {
         return userService.login(request);
     }
      */
+    @PostMapping("/login")
+    public UserResponseDto login(
+            @Valid @RequestBody LoginRequestDto request,
+            HttpSession session
+    ) {
+        UserResponseDto response = userService.login(request);
+
+        session.setAttribute("LOGIN_USER_ID", response.getUser_id());
+
+        return response;
+    }
 
     @PatchMapping("/{userId}")
     public UserResponseDto patchUser(@PathVariable Long userId, @RequestBody UserRequestDto request ) {

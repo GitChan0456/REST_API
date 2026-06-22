@@ -1,18 +1,31 @@
 package com.example.REST_API.entity;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Entity
 @Getter
 @RequiredArgsConstructor    // 필수 인자 생성자 생성(본인초기화) NonNull, final
 public class Comment {
-    private final Long comment_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
+    private Long comment_id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User author;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
+
     private String content;
-    private User author;        // 작성자 정보로 User 객체 사용
     private String write_time;  // 작성시간
 
-    public Comment(Long id, String content, User user){
-        this.comment_id = id;
+    public Comment( Post post, String content, User user){
+        this.post = post;
         this.content = content;
         this.author = user;
         setWrite_time();
