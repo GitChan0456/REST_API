@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor // 기본 생성자 생성
 public class UserResponseDto {
-    private Long user_id;
+    private Long userId;
     private String email;
     private String nickname;
     private String profile_image;
 
     public UserResponseDto(User user) {
-        this.user_id = user.getUserId();
+        this.userId = user.getUserId();
         this.email = user.getEmail();
         this.nickname = user.getNickname();
         this.profile_image = user.getProfile_image();

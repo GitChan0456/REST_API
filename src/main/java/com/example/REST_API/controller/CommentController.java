@@ -4,6 +4,7 @@ import com.example.REST_API.Dto.CommentRequestDto;
 import com.example.REST_API.Dto.CommentResponseDto;
 import com.example.REST_API.Dto.PostRequestDto;
 import com.example.REST_API.Dto.PostResponseDto;
+import com.example.REST_API.exception.NotFoundException;
 import com.example.REST_API.repository.CommentRepository;
 import com.example.REST_API.service.CommentService;
 import jakarta.servlet.http.HttpSession;
@@ -24,7 +25,7 @@ public class CommentController {
         Long loginUserId = (Long) session.getAttribute("LOGIN_USER_ID");
 
         if (loginUserId == null) {
-            throw new IllegalArgumentException("로그인이 필요합니다.");
+            throw new NotFoundException("로그인이 필요합니다.");
         }
 
         return commentService.createComment(loginUserId, postId, request);

@@ -4,6 +4,7 @@ import com.example.REST_API.Dto.LoginRequestDto;
 import com.example.REST_API.Dto.UserRequestDto;
 import com.example.REST_API.Dto.UserResponseDto;
 import com.example.REST_API.entity.User;
+import com.example.REST_API.exception.NotFoundException;
 import com.example.REST_API.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,12 +33,13 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserResponseDto getUser(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User_not_found"));
 
         return new UserResponseDto(user);
     }
 
     // Patch
+    @Transactional
     public UserResponseDto patchUser(Long userId, UserRequestDto request){
         // 어떤 동작인지 확인하고 분배 (컨트롤러 영역에 가깝지 않나)
         if (request.getNickname() != null){
@@ -54,7 +56,7 @@ public class UserService {
     @Transactional
     public UserResponseDto updateNickname(Long userId, UserRequestDto request) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User_not_found"));
 
         user.changeNickname(request.getNickname());
 
@@ -64,7 +66,7 @@ public class UserService {
     @Transactional
     public UserResponseDto updatePassword(Long userId, UserRequestDto request) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User_not_found"));
         user.changePassword(request.getPassword());
         return new UserResponseDto(user);
     }
@@ -72,23 +74,18 @@ public class UserService {
     @Transactional
     public void deleteUser(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User not found"));
         userRepository.deleteById(userId);
     }
 
 
     public UserResponseDto login(LoginRequestDto request) {
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() ->
-                        new IllegalArgumentException(
-                                "Invalid email or password"
-                        )
+                .orElseThrow(() -> new NotFoundException("Invalid email or password")
                 );
 
         if (!user.getPassword().equals(request.getPassword())) {
-            throw new IllegalArgumentException(
-                    "Invalid email or password"
-            );
+            throw new NotFoundException("Invalid email or password");
         }
 
         return new UserResponseDto(user);

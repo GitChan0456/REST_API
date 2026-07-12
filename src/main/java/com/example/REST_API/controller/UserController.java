@@ -25,12 +25,6 @@ public class UserController {
         return userService.createUser(request);
     }
 
-    /*
-    @PostMapping("/login")
-    public UserResponseDto logineUser(@Valid @RequestBody LoginRequestDto request) {
-        return userService.login(request);
-    }
-     */
     @PostMapping("/login")
     public UserResponseDto login(
             @Valid @RequestBody LoginRequestDto request,
@@ -38,7 +32,7 @@ public class UserController {
     ) {
         UserResponseDto response = userService.login(request);
 
-        session.setAttribute("LOGIN_USER_ID", response.getUser_id());
+        session.setAttribute("LOGIN_USER_ID", response.getUserId());
 
         return response;
     }

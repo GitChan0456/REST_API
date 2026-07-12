@@ -24,30 +24,30 @@ public class Post {
     private String content;
 
     @Column(name = "image_url")
-    private String image_url;   // 첨부 이미지 경로
-    private Long like_count;    // 좋아요 수
-    private Long visited_count; // 방문자 수
-    private Long comment_count; // 댓글 수
+    private String imageUrl;   // 첨부 이미지 경로
+    private Long likeCount;    // 좋아요 수
+    private Long visitedCount; // 방문자 수
+    private Long commentCount; // 댓글 수
     private String write_time;  // 작성시간
 
     @OneToMany(mappedBy = "post")
     List<Comment> comments = new ArrayList<>();   // Post 목록을 위한 Post 객체를 담는 List
 
-    public Post(String title, String content, String image_url, User user){
+    public Post(String title, String content, String imageUrl, User user){
         this.title = title;
         this.content = content;
-        this.image_url = image_url;
+        this.imageUrl = imageUrl;
         this.author = user;
 
-        this.like_count = 0L;
-        this.visited_count = 0L;
-        this.comment_count = 0L;
+        this.likeCount = 0L;
+        this.visitedCount = 0L;
+        this.commentCount = 0L;
 
         setWrite_time();
     }
 
-    public void visited_count_up() {
-        this.visited_count++;
+    public void visitedCountUp() {
+        this.visitedCount++;
     }
     public void setWrite_time(){
         this.write_time = "2026-06-01 01:00:00"; // 작성 날짜(임시) 실제로는 현재 시간을 가져와서 넣어야함
@@ -61,8 +61,8 @@ public class Post {
         this.content = content;
         setWrite_time();
     }
-    public void changeImageFile(String image_url) {
-        this.image_url = image_url;
+    public void changeImageFile(String imageUrl) {
+        this.imageUrl = imageUrl;
         setWrite_time();
     }
 

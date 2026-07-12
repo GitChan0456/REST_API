@@ -15,6 +15,6 @@ public class PostRequestDto {
     private String content;
 
     // 이미지는 선택사항
-    private String image_url;
+    private String imageUrl;
 
 }
